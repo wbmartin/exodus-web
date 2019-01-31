@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>Login</h1>
+  <form class="standard-form" [formGroup]="loginFormGroup">
+      <mat-form-field class="compact-form-input" >
+        <input matInput
+        placeholder="User Name"
+        formControlName="username"
+        id="username"
+        name="username"
+        autocomplete="off"
+        required
+        >
+      </mat-form-field>
+      <br>
+      <mat-form-field class="compact-form-input" >
+          <input matInput
+          placeholder="Password"
+          formControlName="passwd"
+          id="passwd"
+          name="passwd"
+          type="password"
+          autocomplete="off"
+          (keyup.enter)="attemptLogin()"
+          required
+          >
+      </mat-form-field>
+
+<br><br>
+
+      <button mat-raised-button
+        type="submit"
+        color="primary"
+        (click)="attemptLogin()"
+      >
+          Login
+      </button>
+      <button mat-raised-button
+        type="submit"
+        color="secondary"
+        (click)="initPasswordReset()"
+      >
+          Reset Password
+      </button>
+
+  </form>
+
+  <br>
+  <div id='googleAuthButton' class="g-signin2" data-onsuccess="onSignIn" (click)="attemptGoogleAuthLogin()"></div>
+  <!--  -->
+
+</div>

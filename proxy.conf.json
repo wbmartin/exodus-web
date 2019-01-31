@@ -1,0 +1,8 @@
+{
+	"/api": {
+	  "target": "https://gunicorn.plainandsimpleterms.com/",
+		"logLevel": "debug",
+		"changeOrigin": true,
+	  "secure": false
+	}
+}

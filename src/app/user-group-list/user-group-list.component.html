@@ -1,0 +1,37 @@
+<br>
+
+<mat-table #table [dataSource]="userGroupDataSource">
+  <ng-container matColumnDef="userGroupNameCol">
+    <mat-header-cell *matHeaderCellDef>
+        Group Role Name
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <a [routerLink]="['/usergroups/system/', element._id['$oid']]">
+          {{ element.groupRoleName }}
+        </a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="createDateCol">
+    <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.createDate['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['userGroupNameCol', 'createDateCol']"></mat-header-row>
+
+    <mat-row *matRowDef="let myRowData; columns: ['userGroupNameCol', 'createDateCol']"></mat-row>
+
+</mat-table>
+
+
+<br>
+<div class="fab-button-bottom-right" >
+  <button
+    mat-fab
+    type="submit"
+    color="primary"
+    (click)="router.navigateByUrl('/usergroups/system/0');"
+    *ngIf="userCanCreate">
+    Create
+  </button>
+</div>

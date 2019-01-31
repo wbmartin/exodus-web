@@ -1,0 +1,3 @@
+#!/bin/sh
+ng build --prod --extract-css=false
+#css problem https://github.com/angular/angular-cli/issues/8577

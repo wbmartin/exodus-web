@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.ql-toolbar.ql-snow {
+  border: none;
+  border-left: 1px solid #ccc;
+}
+
+.ql-container.ql-snow{
+  border: none;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.p-editor-label-style{
+  font-color: rgba(0, 0, 0, 0.54);
+  font-family: Roboto,'Helvetica Neue',sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.125;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.compact-form-input {
+  width: 25%;
+}
+
+.blue-snackbar {
+  background: #2196F3;
+}
+
+.red-snackbar {
+  background: #f3212d;
+}
+.gray-snackbar {
+  background: #616161;
+}
+
+.fab-button-bottom-right {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+
+.accordian-headers-align .mat-expansion-panel-header-title,
+.accordian-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.accordian-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}

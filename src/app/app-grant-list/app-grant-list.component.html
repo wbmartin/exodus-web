@@ -1,0 +1,39 @@
+<br>
+
+<mat-table #table [dataSource]="appGrantDataSource">
+  <ng-container matColumnDef="shortNameCol">
+    <mat-header-cell *matHeaderCellDef>
+        Short Name
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <a [routerLink]="['/appgrants/system', element._id['$oid']]">
+          {{ element.shortName }}
+        </a>
+    </mat-cell>
+  </ng-container>
+  <br>
+
+  <ng-container matColumnDef="longNameCol">
+    <mat-header-cell *matHeaderCellDef>
+        Description
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+
+          {{ element.longName }}
+
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="createDateCol">
+    <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.createDate['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['shortNameCol', 'longNameCol', 'createDateCol']"></mat-header-row>
+
+    <mat-row *matRowDef="let myRowData; columns: ['shortNameCol', 'longNameCol', 'createDateCol']"></mat-row>
+
+</mat-table>
+
+
+<br>

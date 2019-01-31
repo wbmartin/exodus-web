@@ -1,0 +1,184 @@
+<div  style="text-align:left; width:66%;margin:auto">
+  <h1>User Groups</h1>
+    <form [formGroup]="userGroupEditFormGroup">
+
+      <mat-form-field class="full-width">
+        <input matInput
+        placeholder="Group Name"
+        formControlName="groupRoleName"
+        id="usergroupname"
+        name="usergroupname"
+        type="text"
+        autocomplete="off"
+        required
+        >
+      </mat-form-field>
+
+
+      <br>
+
+      <div>
+        <mat-accordion class="accordian-headers-align">
+          <mat-expansion-panel (opened)="expandGrants()">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Privileges
+              </mat-panel-title>
+              <mat-panel-description>
+                View & Edit Group Privileges for Security Contexts
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <h2>
+              <mat-form-field>
+                <mat-select
+                  placeholder="Security Context"
+                  id="visibleSecurityContext"
+                  name="visibleSecurityContext"
+                  [(value)]="visibleSecurityContext"
+                  [compareWith]="compareSecurityContexts"
+                  class="full-width">
+                  <mat-option
+                    *ngFor="let securityContext of securityContextList"
+                    [value]="securityContext.shortName"
+                    (onSelectionChange)="onChangeSecurityContext($event, securityContext)"
+                    >
+                    {{ securityContext.shortName }}
+                  </mat-option>
+
+                </mat-select>
+              </mat-form-field>
+            </h2>
+            <br>
+            <div class="grant-container">
+              <h3>Granted</h3>
+
+              <div
+                cdkDropList
+                #appliedGrantListGroup="cdkDropList"
+                [cdkDropListData]="appliedGrantList"
+                [cdkDropListConnectedTo]="[availGrantListGroup]"
+                (cdkDropListDropped)="grantChangeDrop($event)"
+                class="grant-list">
+                  <div
+                    class="grant-box"
+                    *ngFor="let item of appliedGrantList" cdkDrag>
+                    {{ item.shortName }}
+                  </div>
+              </div>
+            </div>
+
+
+
+            <div class="grant-container">
+              <h3>Available</h3>
+
+              <div
+                cdkDropList
+                #availGrantListGroup="cdkDropList"
+                [cdkDropListData]="availGrantList"
+                [cdkDropListConnectedTo]="[appliedGrantListGroup]"
+                (cdkDropListDropped)="grantChangeDrop($event)"
+                class="grant-list">
+                  <div
+                   class="grant-box"
+                   *ngFor="let item of availGrantList" cdkDrag>
+                    {{ item.shortName }}
+                  </div>
+              </div>
+            </div>
+
+
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Notes
+              </mat-panel-title>
+              <mat-panel-description>
+                View & Edit Group notes
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <div class = "p-editor-label-style" > Group Notes </div>
+              <p-editor
+                id="userGroupNotes"
+                *ngIf="userCanEdit"
+                name="userGroupNotes"
+                formControlName="userGroupNotes"
+                [style]="{'height':'320px'}" >
+
+              </p-editor>
+              <p *ngIf="!userCanEdit" [innerHTML]="userGroupEditFormGroup.value['userGroupNotes']"></p>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Additional Information
+                </mat-panel-title>
+                <mat-panel-description>
+                  View Additional Record Information
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+                <div *ngIf="userGroupEditFormGroup.value['createUser']">
+                Created By: {{ userGroupEditFormGroup.value['createUser'] }} @ {{ userGroupEditFormGroup.value['createDate']['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }} <br>
+                Updated By: {{ userGroupEditFormGroup.value['updateUser'] }} @ {{ userGroupEditFormGroup.value['updateDate']['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }} <br>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+      </div>
+      <br><br>
+
+
+
+      <div >
+
+
+
+      </div>
+
+
+
+
+
+
+        <br>
+
+<!--  z-index:5; position: fixed; display: flex;
+align-self: flex-end; bottom: 10%; margin-bottom: 68px;
+-->
+<div *ngIf="formEditMode=='UPD'"
+  class="fab-button-bottom-right">
+  <button
+    mat-fab
+    *ngIf="userCanUpdate"
+    color="primary"
+    type="submit"
+    (click)="attemptUpdate()">
+    Save
+  </button>
+  <br> <br>
+  <button
+    mat-fab
+    *ngIf="userCanDelete"
+    color="secondary"
+    type="submit"
+    (click)="attemptDelete()">
+    Delete
+  </button>
+
+</div>
+<div *ngIf="formEditMode=='INS'"
+  class="fab-button-bottom-right">
+  <button
+    mat-fab
+    color="primary"
+    type="submit"
+    (click)="attemptCreate()"
+    *ngIf="userCanCreate">
+    Create
+  </button>
+</div>
+
+
+    </form>
+</div>

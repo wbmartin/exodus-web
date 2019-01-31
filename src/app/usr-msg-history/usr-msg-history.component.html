@@ -1,0 +1,15 @@
+<div style="width:66%;margin:auto">
+  <mat-accordion class="accordian-headers-align" >
+    <mat-expansion-panel *ngFor="let curMsg of usrMsgHubService.usrMsgHistory">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+         {{ curMsg.severity }} -  {{ curMsg.title }}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{ curMsg.ts | JSDateFormat }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p style="text-align:left;">{{ curMsg.details }}</p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

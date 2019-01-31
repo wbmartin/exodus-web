@@ -1,0 +1,88 @@
+<div *ngIf="securityContextEditFormGroup.value" style="text-align:left; width:50%;margin:auto">
+    <form [formGroup]="securityContextEditFormGroup">
+
+      <mat-form-field class="full-width">
+        <input matInput
+        placeholder="Security Context ID"
+        formControlName="shortName"
+        id="shortname"
+        name="shortname"
+        type="text"
+        autocomplete="off"
+        required
+        >
+      </mat-form-field>
+
+      <br>
+      <mat-form-field class="full-width">
+        <input matInput
+        placeholder="Short Description"
+        formControlName="longName"
+        id="longName"
+        name="long name"
+        type="text"
+        autocomplete="off"
+        required
+        >
+      </mat-form-field>
+
+      <div >
+        <div class = "p-editor-label-style" > Security Context Notes </div>
+
+<p-editor
+  formControlName="note"
+  *ngIf="userCanEdit"
+  id="securityContextNote"
+  name="securityContextNote"
+  [style]="{'height':'320px'}" >
+
+</p-editor>
+
+<p *ngIf="!userCanEdit" [innerHTML]="securityContextEditFormGroup.value['note']"></p>
+
+      </div>
+
+
+
+
+
+
+        <br>
+<div *ngIf="securityContextEditFormGroup.value['createUser']">
+Created By: {{ securityContextEditFormGroup.value['createUser'] }} @ {{ securityContextEditFormGroup.value['createDate']['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }} <br>
+Updated By: {{ securityContextEditFormGroup.value['updateUser'] }} @ {{ securityContextEditFormGroup.value['updateDate']['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }} <br>
+</div>
+
+<div *ngIf="formEditMode=='UPD'"
+  class="fab-button-bottom-right">
+  <button
+    mat-fab
+    *ngIf="userCanUpdate"
+    color="primary"
+    type="submit"
+    (click)="attemptUpdate()">
+    Save
+  </button>
+  <br><br>
+  <button
+    mat-fab
+    *ngIf="userCanDelete"
+    color="secondary"
+    type="submit"
+    (click)="attemptDelete()">
+    Delete
+  </button>
+</div>
+
+    </form>
+</div>
+<div class="fab-button-bottom-right" >
+  <button
+    mat-fab
+    color="primary"
+    type="submit"
+    (click)="attemptCreate()"
+    *ngIf="userCanCreate && formEditMode=='INS'">
+    Create
+  </button>
+</div>

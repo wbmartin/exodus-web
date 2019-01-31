@@ -1,0 +1,47 @@
+<br>
+
+<mat-table #table [dataSource]="noteEntryDataSource">
+  <ng-container matColumnDef="noteLabelCol">
+    <mat-header-cell *matHeaderCellDef>
+        Label
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <a [routerLink]="['/noteentries/public', element._id['$oid']]">
+          {{ element.label }}
+        </a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="noteBodyCol">
+    <mat-header-cell *matHeaderCellDef>
+        Body
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+
+          {{ element.body | htmlToPlainText }}
+
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="createDateCol">
+    <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.createDate['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['noteLabelCol', 'noteBodyCol', 'createDateCol']"></mat-header-row>
+
+    <mat-row *matRowDef="let myRowData; columns: ['noteLabelCol', 'noteBodyCol', 'createDateCol']"></mat-row>
+
+</mat-table>
+
+
+<br>
+<div class="fab-button-bottom-right" >
+  <button mat-fab
+    type="submit"
+    color="primary"
+    (click)="createNewNoteEntry()"
+    *ngIf="userCanCreate">
+       Create
+  </button>
+</div>

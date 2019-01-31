@@ -1,0 +1,74 @@
+<div *ngIf="appGrantEditFormGroup.value['shortName']" style="text-align:left; width:50%;margin:auto">
+    <form [formGroup]="appGrantEditFormGroup">
+
+      Short Name: {{ appGrantEditFormGroup.value['shortName'] }}
+      <br><br>
+
+      <mat-form-field class="full-width">
+        <input matInput
+        placeholder="Description"
+        formControlName="longName"
+        id="longName"
+        name="longName"
+        type="text"
+        autocomplete="off"
+        required
+        >
+      </mat-form-field>
+
+      <br>
+
+
+
+      <div >
+        <div class = "p-editor-label-style" > Application Grant Notes </div>
+
+        <p-editor
+          formControlName="note"
+          name="note"
+          id="note"
+          *ngIf="userCanEdit"
+          [style]="{'height':'320px'}" >
+
+        </p-editor>
+
+        <p *ngIf="!userCanEdit" [innerHTML]="appGrantEditFormGroup.value['note']"></p>
+
+
+      </div>
+<br><br>
+
+<br><br>
+
+
+
+
+
+
+        <br>
+<div *ngIf="appGrantEditFormGroup.value['createUser']">
+  Created By: {{ appGrantEditFormGroup.value['createUser'] }} @
+  {{ appGrantEditFormGroup.value.createDate['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }}
+  <br>
+  Updated By: {{ appGrantEditFormGroup.value['updateUser'] }} @
+  {{ appGrantEditFormGroup.value.updateDate['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }}
+
+
+</div>
+
+<div *ngIf="formEditMode=='UPD'"
+  class="fab-button-bottom-right">
+  <button
+    mat-fab
+    *ngIf="userCanUpdate"
+    color="primary"
+    type="submit"
+    (click)="attemptUpdate()">
+      Save
+  </button>
+
+</div>
+
+
+    </form>
+</div>

@@ -1,0 +1,40 @@
+<br>
+
+<mat-table #table [dataSource]="userDataSource">
+  <ng-container matColumnDef="userNameCol">
+    <mat-header-cell *matHeaderCellDef>
+        User Name
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <a [routerLink]="['/users/system/', element._id['$oid']]">
+          {{ element.username }}
+        </a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="createDateCol">
+    <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.createDate['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['userNameCol', 'createDateCol']"></mat-header-row>
+
+    <mat-row *matRowDef="let myRowData; columns: ['userNameCol', 'createDateCol']"></mat-row>
+
+</mat-table>
+
+<!--
+<a [routerLink]="['/users', '0']" *ngIf="sessionService.isAuthorized('system','INS_USER')">
+  Create User
+</a>
+-->
+<br>
+<div class="fab-button-bottom-right" >
+  <button mat-fab
+    type="submit"
+    color="primary"
+    (click)="router.navigateByUrl('/users/system/0');"
+    *ngIf="userCanCreate">
+    Create
+  </button>
+</div>

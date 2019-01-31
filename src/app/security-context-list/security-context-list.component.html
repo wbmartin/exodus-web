@@ -1,0 +1,52 @@
+<br>
+
+<mat-table #table [dataSource]="securityContextDataSource">
+  <ng-container matColumnDef="securityContextShortNameCol">
+    <mat-header-cell *matHeaderCellDef>
+        Context ID
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+        <a [routerLink]="['/securitycontexts/system', element._id['$oid']]">
+          {{ element.shortName }}
+        </a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="securityContextLongNameCol">
+    <mat-header-cell *matHeaderCellDef>
+        Context ID
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+
+          {{ element.longName }}
+
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="createDateCol">
+    <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
+    <mat-cell *matCellDef="let element">{{ element.createDate['$date'] | date:'yyyy-MM-ddTHH:mm:ss.sssZ' }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="['securityContextShortNameCol', 'securityContextLongNameCol', 'createDateCol']"></mat-header-row>
+
+    <mat-row *matRowDef="let myRowData; columns: ['securityContextShortNameCol', 'securityContextLongNameCol', 'createDateCol']"></mat-row>
+
+</mat-table>
+
+<!--
+<a [routerLink]="['/securityContextedit', '0']" *ngIf="sessionService.isAuthorized('system','INS_USER')">
+  Create User
+</a>
+-->
+<br>
+<div class="fab-button-bottom-right" >
+  <button
+    mat-fab
+    type="submit"
+    color="primary"
+    (click)="router.navigateByUrl('/securitycontexts/system/0');"
+    *ngIf="userCanCreate">
+      Create
+  </button>
+</div>
